@@ -1,6 +1,5 @@
 import RestrauntCard from './RestrauntCard';
 import React, { useEffect, useState } from 'react';
-import { restrauntList } from '../config';
 import Shimmer from '../components/Shimmer';
 import { Link } from 'react-router-dom';
 import { filterData } from './../utils/helper';
