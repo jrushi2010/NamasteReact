@@ -21,7 +21,7 @@ function RestaurantMenu() {
     return (!restaurant) ? <Shimmer/> : (
         <div className="menu">
             <div>
-                <h1>Restaurant id: {restaurant.id}</h1>
+                <h1>Restaurant Id: {restaurant.id}</h1>
                 <h2>Name: {restaurant.name}</h2>
                 <img src={ImageCDN + restaurant.cloudinaryImageId} />
                 <h3>Area: {restaurant.area}</h3>
