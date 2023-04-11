@@ -3,6 +3,7 @@ import { ImageCDN } from '../config';
 import Shimmer from './Shimmer';
 import useRestaurant from './../utils/useRestaurant';
 
+
 function RestaurantMenu() {
 
     const { id } = useParams();
@@ -22,18 +23,21 @@ function RestaurantMenu() {
             <div>
                 <h1>Restaurant id: {restaurant.id}</h1>
                 <h2>Name: {restaurant.name}</h2>
-                <img src={ImageCDN + restaurant.cloudinaryImageId} />
-                <h3>Area: {restaurant.area}</h3>
+                <img alt="menu" src={ImageCDN + restaurant.cloudinaryImageId} />
+                <h3>Area: {restaurant.areaName}</h3>
                 <h3>City: {restaurant.city}</h3>
                 <h4>AvgRating: {restaurant.avgRating}</h4>
-                <h4>costForTwo: {restaurant.costForTwoMsg}</h4>
+                <h4>costForTwo: {restaurant.costForTwoMessage}</h4>
+                <h4>Cuisines: {restaurant.cuisines}</h4>
+                <h5>Total Ratings: {restaurant.totalRatingsString}</h5>
+                
             </div>
-            <div>
+            {/* <div>
                 <h1>Menu:</h1>
                 <ul>
                     {Object.values(restaurant?.menu?.items).map((item) => (<li key={item.id}>{item.name}</li>))}
                 </ul>
-            </div>
+            </div> */}
 
         </div>
     )
