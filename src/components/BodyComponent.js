@@ -62,7 +62,7 @@ function BodyComponent() {
                 {/* you have to write logic for no restaurant found */}
                 {
                     fileredRestList.map((restaurant) => {
-                        return <Link to={"/restaurant/"+ restaurant.data.id}> <RestrauntCard {...restaurant.data} key={restaurant.data.id} /></Link>
+                        return <Link to={"/restaurant/"+ restaurant.data.id} key={restaurant.data.id}> <RestrauntCard {...restaurant.data}/></Link>
                     })
                 }
             </div>
