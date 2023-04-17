@@ -37,10 +37,10 @@ function BodyComponent() {
 
     return (AllRestList?.length === 0) ? <Shimmer /> : (
         <>
-            <div className="search-container">
+            <div className="search-container p-5 bg-gray-300 my-5">
                 <input
                     type="text"
-                    className="search-input"
+                    className="rounded-md text-2xl"
                     placeholder="Search"
                     value={searchText}
                     onChange={(e) => {
@@ -48,7 +48,7 @@ function BodyComponent() {
                     }}
                 />
 
-                <button className="search-button"
+                <button className="search-button p-2 m-2 bg-green-700 rounded-md hover:bg-rose-400"
                     onClick={() => {
                         //need to filter the data
                         const data = filterData(searchText, AllRestList);
@@ -58,7 +58,7 @@ function BodyComponent() {
                 >Search</button>
                 {searchText}
             </div>
-            <div className="restaurant-list">
+            <div className="flex flex-wrap text-center place-content-center">
                 {/* you have to write logic for no restaurant found */}
                 {
                     fileredRestList.map((restaurant) => {
