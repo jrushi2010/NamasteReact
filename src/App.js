@@ -3,14 +3,13 @@ import './App.css';
 import HeaderComponent from './components/HeaderComponent';
 import BodyComponent from './components/BodyComponent';
 import FooterComponent from './components/FooterComponent';
-import React from 'react';
+import React,{ lazy, Suspense } from 'react';
 import {createBrowserRouter,Outlet} from 'react-router-dom';
-import About from './components/AboutUs';
 import Error from './components/Error';
 import Contact from './components/ContactUs';
 import RestaurantMenu from './components/RestaurantMenu';
 import Profile from './components/Profile';
-
+import Shimmer from './components/Shimmer';
 /**
  
   Header
@@ -30,6 +29,11 @@ import Profile from './components/Profile';
       - copyright
  
  */
+
+      const Instamart = lazy(() => import("./components/Instamart"));
+      const About = lazy(() => import("./components/AboutUs"));
+      
+      //Upon on demand loading --> upon render -> suspend loading
 
 function App() {
   return (
@@ -53,7 +57,11 @@ export const appRouter = createBrowserRouter([
       },
       {
         path:"/about",
-        element:<About/>,
+        element:(
+          <Suspense fallback={<h1>loading....</h1>}>
+            <About />
+          </Suspense>
+        ),
         children:[
           {
             path:"profile",
@@ -68,7 +76,15 @@ export const appRouter = createBrowserRouter([
       {
         path:"/restaurant/:id",
         element:<RestaurantMenu/>
-      }
+      },
+      {
+        path: "instamart",
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <Instamart />
+          </Suspense>
+        ),
+      },
     ]
   },
 ]);

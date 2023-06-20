@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Shimmer from '../components/Shimmer';
 import { Link } from 'react-router-dom';
 import { filterData } from './../utils/helper';
+import useOnline from '../utils/useOnline';
 
 
 function BodyComponent() {
@@ -27,6 +28,12 @@ function BodyComponent() {
         setFilteredRestList(json?.data?.cards[2]?.data?.data?.cards);
     }
 
+    const isOnline = useOnline();
+
+    if(!isOnline) {
+        return <h1>offline, Please check your internet connection!!</h1>
+    }
+
     //conditional rendering
     //if restaurant is empty ==> shimmer ui
     //if restaurant has data ==> actual data ui
@@ -37,7 +44,7 @@ function BodyComponent() {
 
     return (AllRestList?.length === 0) ? <Shimmer /> : (
         <>
-            <div className="search-container p-5 bg-gray-300 my-5">
+            <div className="search-container p-5 bg-[#282c3f] my-5">
                 <input
                     type="text"
                     className="rounded-md text-2xl"
