@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 function TitleComponent() {
   return (
@@ -15,6 +16,8 @@ function TitleComponent() {
 
 function HeaderComponent() {
   const [isLoogedIn, setisLoogedIn] = useState(false);
+
+  const {user} = useContext(UserContext);
 
   return (
     <div className="flex justify-between shadow-lg sm:text-sm md:text-lg">
@@ -36,6 +39,7 @@ function HeaderComponent() {
           <li className="px-2 text-xl  hover:text-amber-600">Cart</li>
         </ul>
       </div>
+      <span className="p-10 font-bold text-red-800">{user.name}</span>
       {isLoogedIn ? (
         <button onClick={() => setisLoogedIn(false)}>Logout</button>
       ) : (
