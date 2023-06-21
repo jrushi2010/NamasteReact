@@ -1,15 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-import HeaderComponent from './components/HeaderComponent';
-import BodyComponent from './components/BodyComponent';
-import FooterComponent from './components/FooterComponent';
-import React,{ lazy, Suspense } from 'react';
-import {createBrowserRouter,Outlet} from 'react-router-dom';
-import Error from './components/Error';
-import Contact from './components/ContactUs';
-import RestaurantMenu from './components/RestaurantMenu';
-import Profile from './components/Profile';
-import Shimmer from './components/Shimmer';
+import logo from "./logo.svg";
+import "./App.css";
+import HeaderComponent from "./components/HeaderComponent";
+import BodyComponent from "./components/BodyComponent";
+import FooterComponent from "./components/FooterComponent";
+import React, { lazy, Suspense } from "react";
+import { createBrowserRouter, Outlet } from "react-router-dom";
+import Error from "./components/Error";
+import Contact from "./components/ContactUs";
+import RestaurantMenu from "./components/RestaurantMenu";
+import Profile from "./components/Profile";
+import Shimmer from "./components/Shimmer";
+import { Provider } from "react-redux";
+import store from "./utils/store";
+import Cart from "./components/Cart";
+
 /**
  
   Header
@@ -30,52 +34,54 @@ import Shimmer from './components/Shimmer';
  
  */
 
-      const Instamart = lazy(() => import("./components/Instamart"));
-      const About = lazy(() => import("./components/AboutUs"));
-      
-      //Upon on demand loading --> upon render -> suspend loading
+const Instamart = lazy(() => import("./components/Instamart"));
+const About = lazy(() => import("./components/AboutUs"));
+
+//Upon on demand loading --> upon render -> suspend loading
 
 function App() {
   return (
-    <React.Fragment>
-      <HeaderComponent/>
-        <Outlet/>
-      <FooterComponent/>
-    </React.Fragment>
+    <Provider store={store}>
+      <React.Fragment>
+        <HeaderComponent />
+        <Outlet />
+        <FooterComponent />
+      </React.Fragment>
+    </Provider>
   );
 }
 
 export const appRouter = createBrowserRouter([
   {
-    path:"/",
-    element:<App/>,
-    errorElement:<Error/>,
-    children:[
+    path: "/",
+    element: <App />,
+    errorElement: <Error />,
+    children: [
       {
-        path:"/",
-        element:<BodyComponent/>
+        path: "/",
+        element: <BodyComponent />,
       },
       {
-        path:"/about",
-        element:(
+        path: "/about",
+        element: (
           <Suspense fallback={<h1>loading....</h1>}>
             <About />
           </Suspense>
         ),
-        children:[
+        children: [
           {
-            path:"profile",
-            element:<Profile/>
-          }
-        ]
+            path: "profile",
+            element: <Profile />,
+          },
+        ],
       },
       {
-        path:"/contact",
-        element:<Contact/>
+        path: "/contact",
+        element: <Contact />,
       },
       {
-        path:"/restaurant/:id",
-        element:<RestaurantMenu/>
+        path: "/restaurant/:id",
+        element: <RestaurantMenu />,
       },
       {
         path: "instamart",
@@ -85,7 +91,11 @@ export const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
-    ]
+      {
+        path: "/cart",
+        element: <Cart/>,
+      }
+    ],
   },
 ]);
 export default App;

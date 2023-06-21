@@ -1,6 +1,8 @@
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../utils/UserContext";
+import { useSelector } from "react-redux";
+import store from "../utils/store";
 
 function TitleComponent() {
   return (
@@ -17,7 +19,10 @@ function TitleComponent() {
 function HeaderComponent() {
   const [isLoogedIn, setisLoogedIn] = useState(false);
 
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
+
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log(cartItems);
 
   return (
     <div className="flex justify-between shadow-lg sm:text-sm md:text-lg">
@@ -36,7 +41,11 @@ function HeaderComponent() {
           <li className="px-2 text-xl  hover:text-amber-600">
             <Link to="/instamart">Instamart</Link>
           </li>
-          <li className="px-2 text-xl  hover:text-amber-600">Cart</li>
+          <Link to="/cart">
+            <li className="px-2 text-xl  hover:text-amber-600">
+              Cart - {cartItems.length} Items
+            </li>
+          </Link>
         </ul>
       </div>
       <span className="p-10 font-bold text-red-800">{user.name}</span>
